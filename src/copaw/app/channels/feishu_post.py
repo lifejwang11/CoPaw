@@ -17,7 +17,7 @@ def _get_key(node: dict[str, Any], *keys: str) -> Optional[str]:
 
 
 def _get_text(node: dict[str, Any], *keys: str) -> str:
-    """Return the first non-empty text value without stripping inline spaces."""
+    """Return first non-empty text value without stripping spaces."""
     for key in keys:
         value = node.get(key)
         if isinstance(value, str) and value:
@@ -63,7 +63,9 @@ def _collect_post_fallback(
         _collect_post_fallback(value, texts, image_keys, seen_images)
 
 
-def parse_feishu_post_content(content: Optional[str]) -> tuple[list[str], list[str]]:
+def parse_feishu_post_content(
+    content: Optional[str],
+) -> tuple[list[str], list[str]]:
     """Parse Feishu post JSON into visible text rows and image keys."""
     if not content:
         return [], []
@@ -82,7 +84,10 @@ def parse_feishu_post_content(content: Optional[str]) -> tuple[list[str], list[s
         if isinstance(data.get("content"), list):
             locale_blocks.append(data)
         for value in data.values():
-            if isinstance(value, dict) and isinstance(value.get("content"), list):
+            if isinstance(value, dict) and isinstance(
+                value.get("content"),
+                list,
+            ):
                 locale_blocks.append(value)
 
     for block in locale_blocks:
