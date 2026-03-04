@@ -10,7 +10,10 @@ from copaw.constant import WORKING_DIR
 def test_to_public_media_url_maps_local_media_path() -> None:
     image_path = str((WORKING_DIR / "media" / "feishu" / "img.jpg").resolve())
 
-    assert to_public_media_url(image_path) == "/api/media/workspace/feishu/img.jpg"
+    assert (
+        to_public_media_url(image_path)
+        == "/api/media/workspace/feishu/img.jpg"
+    )
 
 
 def test_to_public_media_url_maps_home_media_path_when_enabled(
@@ -75,7 +78,9 @@ def test_agentscope_msg_to_message_keeps_image_as_image_content() -> None:
 
 
 def test_agentscope_msg_to_message_maps_file_urls_for_console() -> None:
-    file_path = str((WORKING_DIR / "media" / "feishu" / "report.pdf").resolve())
+    file_path = str(
+        (WORKING_DIR / "media" / "feishu" / "report.pdf").resolve()
+    )
     msg = Msg(
         name="user",
         role="user",
